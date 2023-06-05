@@ -1,66 +1,75 @@
 package com.infostack.findmyjob.models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "tbl_admin")
 public class Admin {
-	private Long adminId;
-	private String adminName;
-	private String adminEmail;
-	private String adminMobileNo;
-	private String adminPassword;
-	
-	public Admin() {
-		super();
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "admin_id", nullable = false)
+    private Long adminId;
 
-	public Admin(Long adminId, String adminName, String adminEmail, String adminMobileNo, String adminPassword) {
-		super();
-		this.adminId = adminId;
-		this.adminName = adminName;
-		this.adminEmail = adminEmail;
-		this.adminMobileNo = adminMobileNo;
-		this.adminPassword = adminPassword;
-	}
+    @Column(name = "admin_name", nullable = false)
+    private String adminName;
+    @Column(name = "admin_email", nullable = false)
+    private String adminEmail;
+    @Column(name = "admin_mobileno", nullable = false)
+    private String adminMobileNo;
+    @Column(name = "admin_password", nullable = false)
+    private String adminPassword;
 
-	public Long getAdminId() {
-		return adminId;
-	}
+    public Admin() {
+        super();
+    }
 
-	public void setAdminId(Long adminId) {
-		this.adminId = adminId;
-	}
+    public Admin(Long adminId, String adminName, String adminEmail, String adminMobileNo, String adminPassword) {
+        super();
+        this.adminId = adminId;
+        this.adminName = adminName;
+        this.adminEmail = adminEmail;
+        this.adminMobileNo = adminMobileNo;
+        this.adminPassword = adminPassword;
+    }
 
-	public String getAdminName() {
-		return adminName;
-	}
+    public Long getAdminId() {
+        return adminId;
+    }
 
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
-	}
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
+    }
 
-	public String getAdminEmail() {
-		return adminEmail;
-	}
+    public String getAdminName() {
+        return adminName;
+    }
 
-	public void setAdminEmail(String adminEmail) {
-		this.adminEmail = adminEmail;
-	}
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
 
-	public String getAdminMobileNo() {
-		return adminMobileNo;
-	}
+    public String getAdminEmail() {
+        return adminEmail;
+    }
 
-	public void setAdminMobileNo(String adminMobileNo) {
-		this.adminMobileNo = adminMobileNo;
-	}
+    public void setAdminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
+    }
 
-	public String getAdminPassword() {
-		return adminPassword;
-	}
+    public String getAdminMobileNo() {
+        return adminMobileNo;
+    }
 
-	public void setAdminPassword(String adminPassword) {
-		this.adminPassword = adminPassword;
-	}
-	
+    public void setAdminMobileNo(String adminMobileNo) {
+        this.adminMobileNo = adminMobileNo;
+    }
+
+    public String getAdminPassword() {
+        return adminPassword;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
+    }
+
 }
