@@ -5,6 +5,8 @@ import com.infostack.findmyjob.respositories.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminService {
     @Autowired
@@ -17,5 +19,10 @@ public class AdminService {
         } else {
             return false;
         }
+    }
+
+    public List<Job> getAllJobs() {
+        List<Job> jobList = (List<Job>) jobRepository.findAll();
+        return jobList;
     }
 }

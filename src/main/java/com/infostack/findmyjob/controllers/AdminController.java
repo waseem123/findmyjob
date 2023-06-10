@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class AdminController {
     @Autowired
@@ -52,12 +54,19 @@ public class AdminController {
         job.setLastDateToApply(job_lastdate);
 
         boolean result = adminService.createJob(job);
-        if(result==true) {
+        if (result == true) {
             System.out.println(job_title + " - Job Posted Succesfully");
-        }else {
+        } else {
             System.out.println("Unable to post a job");
         }
-        return "admin-dashboard";
+        return "redirect:/admin/view-jobs";
+    }
+
+    @RequestMapping("/admin/view-jobs")
+    public String viewJobs(ModelMap m) {
+        List<Job> jobList = adminService.getAllJobs();
+        m.addAttribute("jobList",jobList);
+        return "view-jobs";
     }
 
     @RequestMapping("/jobseeker")
