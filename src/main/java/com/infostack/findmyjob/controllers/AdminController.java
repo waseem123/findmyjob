@@ -1,7 +1,9 @@
 package com.infostack.findmyjob.controllers;
 
 import com.infostack.findmyjob.models.Job;
+import com.infostack.findmyjob.models.JobSeeker;
 import com.infostack.findmyjob.services.AdminService;
+import com.infostack.findmyjob.services.JobSeekerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,12 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class AdminController {
     @Autowired
     AdminService adminService;
+    @Autowired
+    JobSeekerService jobSeekerService;
 
     @RequestMapping("/")
     public String homepage() {
@@ -65,7 +71,7 @@ public class AdminController {
     @RequestMapping("/admin/view-jobs")
     public String viewJobs(ModelMap m) {
         List<Job> jobList = adminService.getAllJobs();
-        m.addAttribute("jobList",jobList);
+        m.addAttribute("jobList", jobList);
         return "view-jobs";
     }
 
@@ -73,4 +79,34 @@ public class AdminController {
     public String jobSeekerDashboard() {
         return "jobseeker-dashboard";
     }
+
+    @RequestMapping("/jobseeker-login")
+    public String jobSeekerLogin() {
+        return "login";
+    }
+
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request,
+                        @RequestParam("useremail") String email,
+                        @RequestParam("password") String password
+    ) {
+        JobSeeker js = jobSeekerService.login(email,password);
+        if(js!=null){
+            HttpSession session = request.getSession();
+            session.setAttribute("jobseekerID", js.getJobSeekerId());
+            session.setAttribute("jobseekerName", js.getJobSeekerName());
+            return "redirect:/jobseeker";
+        }else{
+            return "redirect:/jobseeker-login";
+        }
+    }
+
+    @RequestMapping("/jobseeker-logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/jobseeker-login";
+    }
+
+
 }
