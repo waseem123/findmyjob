@@ -75,38 +75,7 @@ public class AdminController {
         return "view-jobs";
     }
 
-    @RequestMapping("/jobseeker")
-    public String jobSeekerDashboard() {
-        return "jobseeker-dashboard";
-    }
 
-    @RequestMapping("/jobseeker-login")
-    public String jobSeekerLogin() {
-        return "login";
-    }
-
-    @RequestMapping("/login")
-    public String login(HttpServletRequest request,
-                        @RequestParam("useremail") String email,
-                        @RequestParam("password") String password
-    ) {
-        JobSeeker js = jobSeekerService.login(email,password);
-        if(js!=null){
-            HttpSession session = request.getSession();
-            session.setAttribute("jobseekerID", js.getJobSeekerId());
-            session.setAttribute("jobseekerName", js.getJobSeekerName());
-            return "redirect:/jobseeker";
-        }else{
-            return "redirect:/jobseeker-login";
-        }
-    }
-
-    @RequestMapping("/jobseeker-logout")
-    public String logout(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.invalidate();
-        return "redirect:/jobseeker-login";
-    }
 
 
 }
