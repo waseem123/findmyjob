@@ -90,26 +90,35 @@ public class JobSeekerController {
                         @RequestParam(value = "job_id") Long job_id) {
         HttpSession session = request.getSession();
         if (session.getAttribute("jobseekerID") != null) {
-
-            Job j = jobSeekerService.getJobById(job_id);
             Long jobseekerID = (Long) session.getAttribute("jobseekerID");
+
+            /**
+             * Build the objects of Job and JobSeeker
+             * */
+            Job j = jobSeekerService.getJobById(job_id);
             JobSeeker js = jobSeekerService.getJobSeekerById(jobseekerID);
-            Application application = jobSeekerService.applyJob(js, j);
+
+            /*Build the object of application*/
+            Application app = new Application();
+            app.setJobSeeker(js);
+            app.setJob(j);
+
+            Application application = jobSeekerService.applyJob(app);
             return "redirect:/jobseeker/view-jobs";
         }
         return "redirect:/jobseeker-login";
     }
 
-    /*@RequestMapping("/jobseeker/applied-jobs")
+    @RequestMapping("/jobseeker/applied-jobs")
     public String appliedJobs(HttpServletRequest request, ModelMap map) {
         HttpSession session = request.getSession();
         if (session.getAttribute("jobseekerID") != null) {
             Long jobseekerID = (Long) session.getAttribute("jobseekerID");
-            JobSeeker js = jobSeekerService.getJobSeekerById(jobseekerID);
-            List<Job> jobList = jobSeekerService.getAppliedJobs(js);
-            map.addAttribute("jobList", jobList);
-            return "jobseeker-view-jobs";
+
+            List<Application> appliedList = jobSeekerService.getAppliedJobs(jobseekerID);
+            map.addAttribute("appliedList", appliedList);
+            return "view-applied-jobs";
         }
         return "redirect:/jobseeker-login";
-    }*/
+    }
 }

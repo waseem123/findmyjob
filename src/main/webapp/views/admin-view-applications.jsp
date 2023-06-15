@@ -22,19 +22,19 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Application ID</th>
                 <th>Job Title</th>
-                <th>Job Category</th>
-                <th>Job Salary</th>
+                <th>Jobseeker</th>
+                <th>Mobile Number</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${appliedList}" var="application">
+            <c:forEach items="${applicationList}" var="application">
                 <tr>
-                    <td>${application.job.jobId}</td>
+                    <td>${application.applicationId}</td>
                     <td>${application.job.jobTitle}</td>
-                    <td>${application.job.jobCategory}</td>
-                    <td>${application.job.jobSalary}</td>
+                    <td>${application.jobSeeker.jobSeekerName}</td>
+                    <td>${application.jobSeeker.jobSeekerMobileNo}</td>
                 </tr>
             </c:forEach>
         </tbody>

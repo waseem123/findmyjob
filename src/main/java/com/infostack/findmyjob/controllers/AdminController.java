@@ -1,5 +1,6 @@
 package com.infostack.findmyjob.controllers;
 
+import com.infostack.findmyjob.models.Application;
 import com.infostack.findmyjob.models.Job;
 import com.infostack.findmyjob.models.JobSeeker;
 import com.infostack.findmyjob.services.AdminService;
@@ -73,6 +74,13 @@ public class AdminController {
         List<Job> jobList = adminService.getAllJobs();
         m.addAttribute("jobList", jobList);
         return "view-jobs";
+    }
+
+    @RequestMapping("/admin/view-applications")
+    public String viewApplications(ModelMap m) {
+        List<Application> applicationList = adminService.getAllApplications();
+        m.addAttribute("applicationList", applicationList);
+        return "admin-view-applications";
     }
 
 

@@ -32,10 +32,7 @@ public class JobSeekerService {
         return (List<Job>) jobRepository.getJobsBySearchQuery(searchquery);
     }
 
-    public Application applyJob(JobSeeker jobSeeker, Job job) {
-        Application application = new Application();
-        application.setJob(job);
-        application.setJobSeeker(jobSeeker);
+    public Application applyJob(Application application) {
         return applicationRepository.save(application);
     }
 
@@ -47,4 +44,7 @@ public class JobSeekerService {
         return repository.findById(jobseekerID).get();
     }
 
+    public List<Application> getAppliedJobs(Long jobseekerID) {
+        return (List<Application>) applicationRepository.findAllByJobseekerId(jobseekerID);
+    }
 }
